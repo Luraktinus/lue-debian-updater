@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=LDUpdater
+GenericName=Updater
+Comment=Lue Debian Updater, Updates Debian and other Distributions using APT
+Exec=ldu.sh
+Type=Application
+Icon=update-manager
+Categories=System;Utility;
+Terminal=true
