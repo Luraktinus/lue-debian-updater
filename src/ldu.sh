@@ -6,7 +6,7 @@ clear
 
 #--- Greeting
 echo "+------------------------+"
-echo "|Lue Debian Updater 1.2.1|"
+echo "|Lue Debian Updater 1.2.2|"
 echo "+------------------------+"
 echo "I will take care of your system and automatically agree to promts."
 echo ""
