@@ -4,6 +4,10 @@ function clean () {
 	if [ "$DISTRO" == "debian" ]; then
 		sudo apt clean
 	fi
+
+	if [ "$DISTRO" == "arch" ]; then
+		yes | sudo pacman -Sc
+	fi
 }
 
 
@@ -11,11 +15,19 @@ function autoremove () {
 	if [ "$DISTRO" == "debian" ]; then
 		yes | sudo apt autoremove
 	fi
+
+	if [ "$DISTRO" == "arch" ]; then
+		yes | sudo pacman -Rns $(pacman -Qdtq)
+	fi
 }
 
 function upgrade () {
 	if [ "$DISTRO" == "debian" ]; then
 		yes | sudo apt upgrade
+	fi
+
+	if [ "$DISTRO" == "arch" ]; then
+		yes | sudo pacman -Syu
 	fi
 }
 
@@ -23,12 +35,21 @@ function update () {
 	if [ "$DISTRO" == "debian" ]; then
 		sudo apt update
 	fi
+
+	if [ "$DISTRO" == "arch" ]; then
+		sudo pacman -Syy
+	fi
 }
 
 function checkPkgMgr () {
 	apt
 	if [ $? == 0 ]; then
 		DISTRO=debian
+	fi
+
+	pacman
+	if [ $? == 0 ]; then
+		DISTRO=arch
 	fi
 }
 
@@ -48,7 +69,7 @@ sleep 3
 clear
 
 #--- Update downloads the list of packages 
-echo "Running syncing repos... (1/4)"
+echo "Syncing repos... (1/4)"
 echo ""
 update
 exit 0
@@ -57,21 +78,21 @@ echo ""
 
 #--- Upgrade installs new versions
 #--- I use echo "y" | to automatically agree to the promt
-echo "running apt upgrade... (2/4)"
+echo "Upgrading the system... (2/4)"
 echo ""
 upgrade
 echo ""
 #---
 
 #--- Autoremove removes unneeded packages
-echo "running apt autoremove... (3/4)"
+echo "Removing unneeded deps... (3/4)"
 echo ""
 autoremove
 echo ""
 #---
 
 #--- Removes cached packages
-echo "cleaning up... (4/4)"
+echo "Cleaning up the local cache... (4/4)"
 echo ""
 clean
 echo ""
