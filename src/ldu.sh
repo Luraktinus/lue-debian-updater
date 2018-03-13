@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function clean () {
 	if [ "$DISTRO" == "debian" ]; then
